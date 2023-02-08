@@ -1,0 +1,35 @@
+
+--- a/libloragw/src/loragw_hal.c
++++ b/libloragw/src/loragw_hal.c
+@@ -501,7 +501,7 @@ int lgw_txgain_setconf(uint8_t rf_chain, struct lgw_tx_gain_lut_s * conf) {
+             DEBUG_MSG("ERROR: TX gain LUT: External PA gain must not exceed 3\n");
+             return LGW_HAL_ERROR;
+         }
+-        if (conf->lut[i].pwr_idx > 22) {
++        if (conf->lut[i].pwr_idx > 22 && conf->lut[i].pwr_idx < 247) {
+             DEBUG_MSG("ERROR: TX gain LUT: SX1250 power iundex must not exceed 22\n");
+             return LGW_HAL_ERROR;
+         }
+diff --git a/libloragw/tst/test_loragw_hal_tx.c b/libloragw/tst/test_loragw_hal_tx.c
+index 2760b56..91c435b 100644
+--- a/libloragw/tst/test_loragw_hal_tx.c
++++ b/libloragw/tst/test_loragw_hal_tx.c
+@@ -86,7 +86,7 @@ void usage(void) {
+     printf(" --dig  <uint> sx1302 digital gain for sx125x [0..3]\n");
+     printf(" --dac  <uint> sx125x DAC gain [0..3]\n");
+     printf(" --mix  <uint> sx125x MIX gain [5..15]\n");
+-    printf(" --pwid <uint> sx1250 power index [0..22]\n");
++    printf(" --pwid <uint> sx1250 power index [0..22, 247..255]\n");
+     printf( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
+     printf(" --nhdr        Send LoRa packet with implicit header\n");
+     printf( "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n" );
+@@ -366,7 +366,8 @@ int main(int argc, char **argv)
+                     }
+                 } else if (strcmp(long_options[option_index].name, "pwid") == 0) {
+                     i = sscanf(optarg, "%u", &arg_u);
+-                    if ((i != 1) || (arg_u > 22)) {
++                    //if ((i != 1) || (arg_u > 22)) {
++                    if ((i != 1) || (arg_u > 22 && arg_u < 247)) {
+                         printf("ERROR: argument parsing of --pwid argument. Use -h to print help\n");
+                         return EXIT_FAILURE;
+                     } else {
