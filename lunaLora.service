@@ -1,0 +1,11 @@
+[Unit]
+Description=Packet Forwarder Jeedom Luna
+
+[Service]
+Type=oneshot
+EnvironmentFile=-/etc/bin/lunaLora
+ExecStart=./getIdAndRun.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
