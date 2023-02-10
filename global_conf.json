@@ -4,7 +4,7 @@
         "com_path": "/dev/spidev32766.0",
         "lorawan_public": true,
         "clksrc": 0,
-        "antenna_gain": 0, /* antenna gain, in dBi */
+        "antenna_gain": 3, /* antenna gain, in dBi */
         "full_duplex": false,
         "fine_timestamp": {
             "enable": false,
@@ -88,9 +88,9 @@
     },
 
     "gateway_conf": {
-        "gateway_ID": "00016c001f10a43e",
+        "gateway_ID": "xxxxx",
         /* change with default server address/ports */
-        "server_address": "localhost",
+        "server_address": "127.0.0.1",
         "serv_port_up": 1700,
         "serv_port_down": 1700,
         /* adjust the following parameters for your network */
@@ -102,7 +102,7 @@
         "forward_crc_error": false,
         "forward_crc_disabled": false,
         /* GPS configuration */
-        "gps_tty_path": "/dev/ttyFIQ0",
+        /*"gps_tty_path": "/dev/ttyFIQ0",*/
         /* GPS reference coordinates */
         "ref_latitude": 0.0,
         "ref_longitude": 0.0,
